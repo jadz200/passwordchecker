@@ -109,6 +109,8 @@ public class test extends JFrame implements ActionListener  {
         errors.add("uppercase");
         errors.add("number");
         errors.add("symbol");
+        
+        int n=150;
 
         
         if(arr.length>=8){
@@ -165,7 +167,7 @@ public class test extends JFrame implements ActionListener  {
             power.setText("Your password is moderate.");
             power.setVisible(true);
         }
-        int n=150;
+
         for(int i=0;i<errors.size();i++){
             if(errors.get(i).equals("size")){
                 size_error.setBounds(210,n,400,25);
