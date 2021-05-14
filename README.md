@@ -1,2 +1,2 @@
 # passwordchecker
-password checker using java swing
+password checker with GUI using the java swing library
