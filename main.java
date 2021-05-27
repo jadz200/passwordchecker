@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.util.*;
+import java.lang.Math.*;
 public class main extends JFrame implements ActionListener  {
     public static JFrame frame =new JFrame();
     public static JPanel panel=new JPanel();
@@ -17,7 +18,15 @@ public class main extends JFrame implements ActionListener  {
     public static JLabel number_error=new JLabel("Your password should have at least one number");
     public static JLabel upper_error=new JLabel("Your password should have at least one uppercase charchter");
     public static JLabel lower_error=new JLabel("Your password should have at least one lowercase charchter");
-    public static JLabel symbol_error=new JLabel("<html>Your password should have at least one of the following symbol:<br>~`! @#$%^&*()_-+={[}]|\\:;\"\'<,>.?/</html>");
+    public static JLabel symbol_error=new JLabel("<html>Your password should have at least one of the following symbol:<br>~`!@#$%^&*()_-+={[}]|\\:;\"\'<,>.?/</html>");
+    public static JLabel gen_pass=new JLabel();
+    public static JButton generate=new JButton("Generate");
+    public static JCheckBox cb1=new JCheckBox();
+    public static JCheckBox cb2=new JCheckBox();
+    public static JCheckBox cb3=new JCheckBox();
+    public static boolean without_upper=false;
+    public static boolean without_symbol=false; 
+    public static boolean without_number=false; 
 
     public static void main(String[] args) {
         frame.setSize(600,500);
@@ -68,6 +77,32 @@ public class main extends JFrame implements ActionListener  {
         panel.add(lower_error);
 
         panel.add(symbol_error);
+        
+        generate.setBounds(100,155,100,25);
+        generate.addActionListener(new test());
+        panel.add(generate);
+        
+        gen_pass.setBounds(210,155,200,25);
+        panel.add(gen_pass);
+
+        cb1.setBounds(100,181,150,25);
+        cb1.setText("Without symbols");
+        cb1.setOpaque(false);
+        cb1.addActionListener(new test());
+        panel.add(cb1);
+        
+
+        cb2.setBounds(100,207,150,25);
+        cb2.setText("Without numbers");
+        cb2.setOpaque(false);
+        cb2.addActionListener(new test());
+        panel.add(cb2);
+
+        cb3.setBounds(100,233,150,25);
+        cb3.setText("Without uppercases");
+        cb3.setOpaque(false);
+        cb3.addActionListener(new test());
+        panel.add(cb3);
 
         ImageIcon img=new ImageIcon("image.jpg");
         JLabel background=new JLabel(img);
@@ -77,6 +112,21 @@ public class main extends JFrame implements ActionListener  {
         frame.setVisible(true);
     }
     public void actionPerformed(ActionEvent e){
+        if(cb1.isSelected()){
+            without_symbol=true;
+        }else{
+            without_symbol=false;
+        }
+        if(cb2.isSelected()){
+            without_number=true;
+        }else{
+            without_number=false;
+        }
+        if(cb3.isSelected()){
+            without_upper=true;
+        }else{
+            without_upper=false;
+        }
 
         if(e.getSource()==visible){
             passwordText.setEchoChar((char)0);
@@ -89,12 +139,15 @@ public class main extends JFrame implements ActionListener  {
             hidden.setVisible(false);
 
         }else if(e.getSource()==confirm){
+            reset();
             char[] password=passwordText.getPassword();
             passCheck(password);
+        }else if(e.getSource()==generate){
+            reset();
+            generate_pass();
         }
     }
-    
-    public static void passCheck(char[] arr){
+    public static void reset(){
         error.setVisible(false);
         power.setVisible(false);
         size_error.setVisible(false);
@@ -102,15 +155,125 @@ public class main extends JFrame implements ActionListener  {
         upper_error.setVisible(false);
         lower_error.setVisible(false);
         symbol_error.setVisible(false);
+        gen_pass.setVisible(false);
 
+    }
+    public static void generate_pass(){
+        String pass="";
+        String lowercase="qwertyuiopasdfghjklzxcvbnm";
+        String uppercase="QWERTYUIOPASDFGHJKLZXCVBNM";
+        String symbol="~`!@#$%^&*()_-+={[}]|\\:;\"\'<,>.?/";
+        String number="1234567890";
+        int length=8+(int)(Math.random()*((12-8)+1));
+        if(without_number==true&&without_symbol==true&&without_upper==true){
+            for(int i=0;i<length;i++){
+                pass+=lowercase.charAt(0+(int)(Math.random()*((lowercase.length()-0))));
+            }
+        }else if(without_number==true&&without_symbol==true){
+            pass+=uppercase.charAt((int)(Math.random()*uppercase.length()));
+            pass+=lowercase.charAt((int)(Math.random()*lowercase.length()));
+            for(int i=0;i<length-2;i++){
+                int rand=(int)(Math.random()*2);
+                if(rand==0){
+                    pass+=uppercase.charAt((int)(Math.random()*uppercase.length()));
+                }else if (rand==1){
+                    pass+=lowercase.charAt((int)(Math.random()*lowercase.length()));
+                }
+            }
+        }else if(without_number==true&&without_upper==true){
+            pass+=symbol.charAt((int)(Math.random()*symbol.length()));
+            pass+=lowercase.charAt((int)(Math.random()*lowercase.length()));
+            for(int i=0;i<length-2;i++){
+                int rand=(int)(Math.random()*2);
+                if(rand==0){
+                    pass+=symbol.charAt((int)(Math.random()*symbol.length()));
+                }else if (rand==1){
+                    pass+=lowercase.charAt((int)(Math.random()*lowercase.length()));
+                }
+            }
+        }else if(without_upper==true&&without_symbol==true){
+            pass+=number.charAt((int)(Math.random()*number.length()));
+            pass+=lowercase.charAt((int)(Math.random()*lowercase.length()));
+            for(int i=0;i<length-2;i++){
+                int rand=(int)(Math.random()*2);
+                if(rand==0){
+                    pass+=number.charAt((int)(Math.random()*number.length()));
+                }else if (rand==1){
+                    pass+=lowercase.charAt((int)(Math.random()*lowercase.length()));
+                }
+            }
+        }else if(without_number==true){
+            pass+=uppercase.charAt((int)(Math.random()*uppercase.length()));
+            pass+=symbol.charAt((int)(Math.random()*symbol.length()));
+            pass+=lowercase.charAt((int)(Math.random()*lowercase.length()));
+            for(int i=0;i<length-3;i++){
+                int rand=(int)(Math.random()*3);
+                if(rand==0){
+                    pass+=uppercase.charAt((int)(Math.random()*uppercase.length()));
+                }else if(rand==1){
+                    pass+=symbol.charAt((int)(Math.random()*symbol.length()));
+                }else if (rand==2){
+                    pass+=lowercase.charAt((int)(Math.random()*lowercase.length()));
+                }
+            }
+        }else if(without_upper==true){
+            pass+=number.charAt((int)(Math.random()*number.length()));
+            pass+=symbol.charAt((int)(Math.random()*symbol.length()));
+            pass+=lowercase.charAt((int)(Math.random()*lowercase.length()));
+            for(int i=0;i<length-3;i++){
+                int rand=(int)(Math.random()*3);
+                if(rand==0){
+                    pass+=symbol.charAt((int)(Math.random()*symbol.length()));
+                }else if(rand==1){
+                    pass+=number.charAt((int)(Math.random()*number.length()));
+                }else if (rand==2){
+                    pass+=lowercase.charAt((int)(Math.random()*lowercase.length()));
+                }
+            }
+        }else if(without_symbol==true){
+            pass+=number.charAt((int)(Math.random()*number.length()));
+            pass+=uppercase.charAt((int)(Math.random()*uppercase.length())); 
+            pass+=lowercase.charAt((int)(Math.random()*lowercase.length()));
+            for(int i=0;i<length-3;i++){
+                int rand=(int)(Math.random()*3);
+                if(rand==0){
+                    pass+=uppercase.charAt((int)(Math.random()*uppercase.length()));
+                }else if(rand==1){
+                    pass+=number.charAt((int)(Math.random()*number.length()));
+                }else if (rand==2){
+                    pass+=lowercase.charAt((int)(Math.random()*lowercase.length()));
+                }
+            }
+        }else{
+            pass+=uppercase.charAt((int)(Math.random()*uppercase.length()));
+            pass+=number.charAt((int)(Math.random()*number.length())); 
+            pass+=lowercase.charAt((int)(Math.random()*lowercase.length()));
+            pass+=symbol.charAt((int)(Math.random()*symbol.length()));
+            System.out.println(pass);
+            for(int i=0;i<=length-4;i++){
+                int rand=(int)(Math.random()*4);
+                if(rand==0){
+                    pass+=uppercase.charAt((int)(Math.random()*uppercase.length()));
+                }else if(rand==1){
+                    pass+=symbol.charAt((int)(Math.random()*symbol.length()));
+                }else if(rand==2){
+                    pass+=number.charAt((int)(Math.random()*number.length()));
+                }else if (rand==3){
+                    pass+=lowercase.charAt((int)(Math.random()*lowercase.length()));
+                }
+            }
+        }
+        gen_pass.setText(pass);
+        gen_pass.setVisible(true);
+
+    }
+    public static void passCheck(char[] arr){
         ArrayList<String> errors=new ArrayList<String>();
         errors.add("size");
         errors.add("lowercase");
         errors.add("uppercase");
         errors.add("number");
         errors.add("symbol");
-        
-        int n=150;
 
         
         if(arr.length>=8){
@@ -167,7 +330,7 @@ public class main extends JFrame implements ActionListener  {
             power.setText("Your password is moderate.");
             power.setVisible(true);
         }
-
+        int n=150;
         for(int i=0;i<errors.size();i++){
             if(errors.get(i).equals("size")){
                 size_error.setBounds(210,n,400,25);
