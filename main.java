@@ -249,7 +249,6 @@ public class main extends JFrame implements ActionListener  {
             pass+=number.charAt((int)(Math.random()*number.length())); 
             pass+=lowercase.charAt((int)(Math.random()*lowercase.length()));
             pass+=symbol.charAt((int)(Math.random()*symbol.length()));
-            System.out.println(pass);
             for(int i=0;i<=length-4;i++){
                 int rand=(int)(Math.random()*4);
                 if(rand==0){
