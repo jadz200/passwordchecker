@@ -3,6 +3,8 @@ import java.awt.event.*;
 import java.awt.*;
 import java.util.*;
 import java.lang.Math.*;
+
+
 public class main extends JFrame implements ActionListener  {
     public static JFrame frame =new JFrame();
     public static JPanel panel=new JPanel();
@@ -16,9 +18,9 @@ public class main extends JFrame implements ActionListener  {
     public static JLabel power=new JLabel();
     public static JLabel size_error=new JLabel("Your password should have at least 8 charachters");
     public static JLabel number_error=new JLabel("Your password should have at least one number");
-    public static JLabel upper_error=new JLabel("Your password should have at least one uppercase charchter");
-    public static JLabel lower_error=new JLabel("Your password should have at least one lowercase charchter");
-    public static JLabel symbol_error=new JLabel("<html>Your password should have at least one of the following symbol:<br>~`!@#$%^&*()_-+={[}]|\\:;\"\'<,>.?/</html>");
+    public static JLabel upper_error=new JLabel("Your password should have at least one uppercase charachter");
+    public static JLabel lower_error=new JLabel("Your password should have at least one lowercase charachter");
+    public static JLabel symbol_error=new JLabel("<html>Your password should have at least one of the following <br> symbol:~`!@#$%^&*()_-+={[}]|\\:;\"\'<,>.?/</html>");
     public static JLabel gen_pass=new JLabel();
     public static JButton generate=new JButton("Generate");
     public static JCheckBox cb1=new JCheckBox();
@@ -47,24 +49,24 @@ public class main extends JFrame implements ActionListener  {
         panel.add(passwordText);
         
         visible.setBounds(375, 75, 50, 25);
-        visible.addActionListener(new test());
+        visible.addActionListener(new main());
         panel.add(visible);
 
         hidden.setBounds(375, 75, 50, 25);
-        hidden.addActionListener(new test());
+        hidden.addActionListener(new main());
         panel.add(hidden);
         hidden.setVisible(false);
         
         confirm.setText("Confirm");
-        confirm.setBounds(100,125,100,25);
-        confirm.addActionListener(new test());
+        confirm.setBounds(90,125,100,25);
+        confirm.addActionListener(new main());
         panel.add(confirm);
         
         error.setBounds(210,125,300,25);
         error.setVisible(false);
         panel.add(error);
 
-        power.setBounds(210,125,300,25);
+        power.setBounds(227,125,300,25);
         power.setVisible(false);
         panel.add(power);
 
@@ -78,30 +80,30 @@ public class main extends JFrame implements ActionListener  {
 
         panel.add(symbol_error);
         
-        generate.setBounds(100,155,100,25);
-        generate.addActionListener(new test());
+        generate.setBounds(90,155,100,25);
+        generate.addActionListener(new main());
         panel.add(generate);
         
         gen_pass.setBounds(210,155,200,25);
         panel.add(gen_pass);
 
-        cb1.setBounds(100,181,150,25);
+        cb1.setBounds(90,181,150,25);
         cb1.setText("Without symbols");
         cb1.setOpaque(false);
-        cb1.addActionListener(new test());
+        cb1.addActionListener(new main());
         panel.add(cb1);
         
 
-        cb2.setBounds(100,207,150,25);
+        cb2.setBounds(90,207,150,25);
         cb2.setText("Without numbers");
         cb2.setOpaque(false);
-        cb2.addActionListener(new test());
+        cb2.addActionListener(new main());
         panel.add(cb2);
 
-        cb3.setBounds(100,233,150,25);
+        cb3.setBounds(90,233,150,25);
         cb3.setText("Without uppercases");
         cb3.setOpaque(false);
-        cb3.addActionListener(new test());
+        cb3.addActionListener(new main());
         panel.add(cb3);
 
         ImageIcon img=new ImageIcon("image.jpg");
@@ -332,27 +334,27 @@ public class main extends JFrame implements ActionListener  {
         int n=150;
         for(int i=0;i<errors.size();i++){
             if(errors.get(i).equals("size")){
-                size_error.setBounds(210,n,400,25);
+                size_error.setBounds(227,n,400,25);
                 size_error.setVisible(true);
                 n+=25;
 
             } else if(errors.get(i).equals("number")){
-                number_error.setBounds(210,n,400,25);
+                number_error.setBounds(227,n,400,25);
                 number_error.setVisible(true);
                 n+=25;
 
             }else if(errors.get(i).equals("uppercase")){
-                upper_error.setBounds(210,n,400,25);
+                upper_error.setBounds(227,n,400,25);
                 upper_error.setVisible(true);
                 n+=25;
 
             }else if(errors.get(i).equals("lowercase")){
-                lower_error.setBounds(210,n,400,25);
+                lower_error.setBounds(227,n,400,25);
                 lower_error.setVisible(true);
                 n+=25;
 
             }else if(errors.get(i).equals("symbol")){
-                symbol_error.setBounds(210,n,400,50);
+                symbol_error.setBounds(227,n,400,50);
                 symbol_error.setVisible(true);
                 n+=25;
 
